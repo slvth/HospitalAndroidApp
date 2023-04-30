@@ -27,7 +27,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/btnBackSaveRecord"
+            android:id="@+id/btnSaveAddRecord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Сохранить" />

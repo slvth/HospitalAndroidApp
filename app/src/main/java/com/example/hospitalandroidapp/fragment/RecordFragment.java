@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hospitalandroidapp.AddRecordActivity;
 import com.example.hospitalandroidapp.R;
@@ -62,6 +63,7 @@ public class RecordFragment extends Fragment {
     private void downloadDataToRecyclerview(){
         ArrayList<RecordReceptionModel> records = new ArrayList<>();
         ConnectionSQL connectionSQL = new ConnectionSQL();
+
         connection = connectionSQL.connectionClass();
         if(connection != null){
             String sqlQuery = "Select з.*, в.фамилия+' '+в.имя+' '+в.отчество фио from [запись на прием] з, [врач] в where з.[код врача]=в.[код врача] order by з.[дата и время]";

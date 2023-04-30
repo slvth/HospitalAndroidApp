@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.hospitalandroidapp.database.ConnectionSQL;
 
@@ -47,7 +48,7 @@ public class AddRecordActivity extends AppCompatActivity {
         editTextDateAddRecord = findViewById(R.id.editTextDateAddRecord);
         ImageButton imgButtonDateAddRecord = findViewById(R.id.imgButtonDateAddRecord);
         Button btnBackAddRecord = findViewById(R.id.btnBackAddRecord);
-        Button btnBackSaveRecord = findViewById(R.id.btnBackSaveRecord);
+        Button btnSaveAddRecord = findViewById(R.id.btnSaveAddRecord);
 
 
         loadSpinnerProfession();
@@ -68,9 +69,14 @@ public class AddRecordActivity extends AppCompatActivity {
             }
         });
 
-        btnBackSaveRecord.setOnClickListener(new View.OnClickListener() {
+        btnSaveAddRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!isValidate()){
+                    Toast.makeText(AddRecordActivity.this, "Ошибка при соединении с БД или не заполнены данные", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 ConnectionSQL connectionSQL = new ConnectionSQL();
                 connection = connectionSQL.connectionClass();
 
@@ -99,6 +105,7 @@ public class AddRecordActivity extends AppCompatActivity {
                         statement = connection.createStatement();
                         statement.executeQuery(sqlQuery);
                         connection.close();
+
                     } catch (Exception e) {
                         Log.e("Error: ", e.getMessage());
                     }
@@ -107,6 +114,11 @@ public class AddRecordActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private Boolean isValidate(){
+        return spinnerDoctor.getSelectedItem()!=null
+                && spinnerProfession.getSelectedItem()!=null;
     }
 
     private void loadSpinnerProfession(){
