@@ -64,4 +64,7 @@ public class RecordReceptionModel {
     public void setDoctorFIO(String doctorFIO) {
         this.doctorFIO = doctorFIO;
     }
+
+
+
 }

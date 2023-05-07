@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".fragment.AccountFragment2">
 
@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -26,13 +26,12 @@
                 android:padding="15dp">
 
                 <ImageView
-                    android:id="@+id/imageView12"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/account" />
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/txtAccountFIO"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="ФИО"
@@ -41,7 +40,7 @@
                     android:textSize="28sp" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnExit"
+                    android:id="@+id/btnExitAccount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -53,51 +52,81 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="15dp">
 
                 <LinearLayout
+                    android:id="@+id/linearMainButtons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
+                    android:animateLayoutChanges="true"
                     android:orientation="vertical">
 
                     <Button
-                        android:id="@+id/btnOpenHistoryShopInfo"
+                        android:id="@+id/btnOpenHistory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="История посещений" />
 
                     <Button
-                        android:id="@+id/btnOpenLogin3"
+                        android:id="@+id/btnEditAccount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Редактировать профиль" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/linearEditButtons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:animateLayoutChanges="true"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnAccountCancel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Отмена" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.8" />
+
+                    <Button
+                        android:id="@+id/btnAccountSave"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Сохранить" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView19"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="ID:"
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/txtChildOrParent"
+                        android:id="@+id/txtAccountID"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_marginLeft="15dp"
                         android:text="@string/no_data"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -108,7 +137,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView22"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -118,22 +146,24 @@
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <RadioButton
-                            android:id="@+id/rbtnMale"
+                            android:id="@+id/rbtnAccountMale"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="мужской"
                             android:textSize="16sp"
-                            android:text="мужской" />
+                            app:buttonTint="@color/blue2" />
 
                         <RadioButton
-                            android:id="@+id/rbtnFemale"
+                            android:id="@+id/rbtnAccountFemale"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="женский"
                             android:textSize="16sp"
-                            android:text="женский" />
+                            app:buttonTint="@color/blue2"/>
                     </RadioGroup>
 
 
@@ -146,7 +176,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView31"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -169,7 +198,7 @@
                             android:textSize="18sp" />
 
                         <ImageButton
-                            android:id="@+id/imgButtonDatekkk"
+                            android:id="@+id/btnAccountDate"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@color/grey"
@@ -187,7 +216,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView24"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -195,28 +223,20 @@
                         android:textSize="18sp" />
 
                     <com.santalu.maskara.widget.MaskEditText
-                        android:id="@+id/input"
+                        android:id="@+id/edtAccountPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:backgroundTint="@color/blue2"
-                        android:inputType="number"
                         android:hint="+7(___)-___-__-__"
+                        android:inputType="number"
                         app:mask="+7(___)-___-__-__"
                         app:maskCharacter="_"
-                        app:maskStyle="completable"/>
+                        app:maskStyle="completable" />
 
 
                 </LinearLayout>
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/blue2"
-                    android:hint="89000000000"
-                    android:maxLength="11"
-                    android:inputType="phone" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -230,14 +250,17 @@
                         android:text="Паспорт:"
                         android:textSize="18sp" />
 
-                    <EditText
+                    <com.santalu.maskara.widget.MaskEditText
+                        android:id="@+id/edtAccountPassport"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:backgroundTint="@color/blue2"
-                        android:hint="0000 000000"
-                        android:maxLength="11"
-                        android:inputType="number" />
+                        android:hint="____ ______"
+                        android:inputType="number"
+                        app:mask="____ ______"
+                        app:maskCharacter="_"
+                        app:maskStyle="completable" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -253,14 +276,18 @@
                         android:text="Полис ОМС:"
                         android:textSize="18sp" />
 
-                    <EditText
+                    <com.santalu.maskara.widget.MaskEditText
+                        android:id="@+id/edtAccountPolicyOMS"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="0.95"
                         android:backgroundTint="@color/blue2"
-                        android:hint="0000 0000 0000 0000"
-                        android:maxLength="16"
-                        android:inputType="number" />
+                        android:hint="____ ____ ____ ____"
+                        android:inputType="number"
+                        app:mask="____ ____ ____ ____"
+                        app:maskCharacter="_"
+                        app:maskStyle="completable" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -276,13 +303,17 @@
                         android:text="СНИЛС:"
                         android:textSize="18sp" />
 
-                    <EditText
+                    <com.santalu.maskara.widget.MaskEditText
+                        android:id="@+id/edtAccountSNILS"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:backgroundTint="@color/blue2"
-                        android:hint="000-000-000 00"
-                        android:inputType="number" />
+                        android:hint="___-___-___ __"
+                        android:inputType="number"
+                        app:mask="___-___-___ __"
+                        app:maskCharacter="_"
+                        app:maskStyle="completable" />
                 </LinearLayout>
 
                 <TextView
@@ -292,6 +323,7 @@
                     android:textSize="18sp" />
 
                 <EditText
+                    android:id="@+id/edtAddressRegistration"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/blue2"
@@ -305,6 +337,7 @@
                     android:textSize="18sp" />
 
                 <EditText
+                    android:id="@+id/edtAddressResidence"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/blue2"

@@ -1,8 +1,12 @@
 package com.example.hospitalandroidapp;
 
+import static android.app.PendingIntent.getActivity;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hospitalandroidapp.database.ConnectionSQL;
+import com.example.hospitalandroidapp.database.PacientModel;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.sql.Connection;
@@ -80,6 +85,12 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this, "Неправильный логин или пароль!", Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt(getString(R.string.pref_id), user_id);
+            editor.apply();
+
             Toast.makeText(this, "Успешная авторизация!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
