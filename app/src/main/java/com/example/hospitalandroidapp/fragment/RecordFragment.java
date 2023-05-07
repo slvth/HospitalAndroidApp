@@ -46,7 +46,6 @@ public class RecordFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AddRecordActivity.class);
                 startActivityForResult(intent, 100);
-
             }
         });
 

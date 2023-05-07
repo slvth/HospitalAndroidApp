@@ -76,42 +76,7 @@ public class AddRecordActivity extends AppCompatActivity {
                     Toast.makeText(AddRecordActivity.this, "Ошибка при соединении с БД или не заполнены данные", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                ConnectionSQL connectionSQL = new ConnectionSQL();
-                connection = connectionSQL.connectionClass();
-
-                String doctorFIO = spinnerDoctor.getSelectedItem().toString();
-                int doctorID = 0;
-
-                if(connection != null){
-                    String sqlQueryFindDoctorID = "SELECT d.[код врача], d.фамилия+' '+d.имя+' '+d.отчество as fio from [врач] d " +
-                            "where d.фамилия+' '+d.имя+' '+d.отчество = '"+doctorFIO+"' ";
-                    Statement statement = null;
-                    try {
-                        statement = connection.createStatement();
-                        ResultSet set = statement.executeQuery(sqlQueryFindDoctorID);
-                        while (set.next()){
-                            doctorID = set.getInt(1);
-                        }
-                    } catch (Exception e) {
-                        Log.e("Error: ", e.getMessage());
-                    }
-
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd HH:mm", Locale.ENGLISH);
-                    String selectedDateTime = dateFormat.format(dateAndTime.getTime());
-                    String sqlQuery = "Insert into [запись на прием]([код врача], [код пациента], [дата и время]) " +
-                            "values ('"+doctorID+"','"+1+"', '"+selectedDateTime+"')";
-                    try {
-                        statement = connection.createStatement();
-                        statement.executeQuery(sqlQuery);
-                        connection.close();
-
-                    } catch (Exception e) {
-                        Log.e("Error: ", e.getMessage());
-                    }
-                }
-                setResult(RESULT_OK, getIntent());
-                finish();
+                saveRecord();
             }
         });
     }
@@ -119,6 +84,44 @@ public class AddRecordActivity extends AppCompatActivity {
     private Boolean isValidate(){
         return spinnerDoctor.getSelectedItem()!=null
                 && spinnerProfession.getSelectedItem()!=null;
+    }
+
+    private void saveRecord(){
+        ConnectionSQL connectionSQL = new ConnectionSQL();
+        connection = connectionSQL.connectionClass();
+
+        String doctorFIO = spinnerDoctor.getSelectedItem().toString();
+        int doctorID = 0;
+
+        if(connection != null){
+            String sqlQueryFindDoctorID = "SELECT d.[код врача], d.фамилия+' '+d.имя+' '+d.отчество as fio from [врач] d " +
+                    "where d.фамилия+' '+d.имя+' '+d.отчество = '"+doctorFIO+"' ";
+            Statement statement = null;
+            try {
+                statement = connection.createStatement();
+                ResultSet set = statement.executeQuery(sqlQueryFindDoctorID);
+                while (set.next()){
+                    doctorID = set.getInt(1);
+                }
+            } catch (Exception e) {
+                Log.e("Error: ", e.getMessage());
+            }
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd HH:mm", Locale.ENGLISH);
+            String selectedDateTime = dateFormat.format(dateAndTime.getTime());
+            String sqlQuery = "Insert into [запись на прием]([код врача], [код пациента], [дата и время]) " +
+                    "values ('"+doctorID+"','"+1+"', '"+selectedDateTime+"')";
+            try {
+                statement = connection.createStatement();
+                statement.executeQuery(sqlQuery);
+                connection.close();
+
+            } catch (Exception e) {
+                Log.e("Error: ", e.getMessage());
+            }
+        }
+        setResult(RESULT_OK, getIntent());
+        finish();
     }
 
     private void loadSpinnerProfession(){
@@ -159,7 +162,6 @@ public class AddRecordActivity extends AppCompatActivity {
     }
 
     private void loadSpinnerDoctor(){
-
         ArrayList<String> data = new ArrayList<>();
 
         ConnectionSQL connectionSQL = new ConnectionSQL();

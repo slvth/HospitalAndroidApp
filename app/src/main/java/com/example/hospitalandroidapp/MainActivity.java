@@ -7,13 +7,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.hospitalandroidapp.fragment.AccountFragment;
+import com.example.hospitalandroidapp.fragment.AccountFragment2;
 import com.example.hospitalandroidapp.fragment.RecordFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     RecordFragment recordFragment = new RecordFragment();
-    AccountFragment accountFragment = new AccountFragment();
+    AccountFragment2 accountFragment = new AccountFragment2();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
