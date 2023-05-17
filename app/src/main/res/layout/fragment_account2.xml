@@ -70,12 +70,15 @@
                         android:id="@+id/btnOpenHistory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxHeight="60dp"
+                        android:scaleType="fitXY"
                         android:text="История посещений" />
 
                     <Button
                         android:id="@+id/btnEditAccount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxHeight="60dp"
                         android:text="Редактировать профиль" />
                 </LinearLayout>
 
@@ -131,6 +134,85 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/linearFIO"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Фамилия:"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:id="@+id/edtAccountSurname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/blue2"
+                            android:hint=""
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Имя:"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:id="@+id/edtAccountName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/blue2"
+                            android:hint=""
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Отчество:"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:id="@+id/edtAccountMiddleName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/blue2"
+                            android:hint=""
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -171,7 +253,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
@@ -199,8 +281,8 @@
 
                         <ImageButton
                             android:id="@+id/btnAccountDate"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
                             android:background="@color/grey"
                             android:scaleType="centerInside"
                             android:src="@drawable/date" />
@@ -343,8 +425,6 @@
                     android:backgroundTint="@color/blue2"
                     android:hint=""
                     android:inputType="textMultiLine" />
-
-
             </LinearLayout>
 
         </LinearLayout>

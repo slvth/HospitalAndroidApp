@@ -1,4 +1,4 @@
-package com.example.hospitalandroidapp;
+package com.example.hospitalandroidapp.activity;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -14,16 +14,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hospitalandroidapp.MainActivity;
+import com.example.hospitalandroidapp.R;
 import com.example.hospitalandroidapp.database.ConnectionSQL;
-import com.example.hospitalandroidapp.database.PacientModel;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     Connection connection;
@@ -53,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         txtResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(LoginActivity.this, "efsefse", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
             }
         });
     }

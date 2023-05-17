@@ -1,12 +1,9 @@
-package com.example.hospitalandroidapp;
-
-import static android.content.DialogInterface.BUTTON_POSITIVE;
+package com.example.hospitalandroidapp.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.hospitalandroidapp.R;
 import com.example.hospitalandroidapp.database.ConnectionSQL;
 
 import java.sql.Connection;
@@ -31,7 +29,6 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class AddRecordActivity extends AppCompatActivity {
-
     Connection connection;
     Spinner spinnerProfession, spinnerDoctor;
     EditText editTextDateAddRecord;
@@ -49,7 +46,6 @@ public class AddRecordActivity extends AppCompatActivity {
         ImageButton imgButtonDateAddRecord = findViewById(R.id.imgButtonDateAddRecord);
         Button btnBackAddRecord = findViewById(R.id.btnBackAddRecord);
         Button btnSaveAddRecord = findViewById(R.id.btnSaveAddRecord);
-
 
         loadSpinnerProfession();
         setInitialDateTime();
@@ -72,10 +68,18 @@ public class AddRecordActivity extends AppCompatActivity {
         btnSaveAddRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //проверка на заполненность
                 if(!isValidate()){
                     Toast.makeText(AddRecordActivity.this, "Ошибка при соединении с БД или не заполнены данные", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                //проверка на наличие записи на существующее время
+                if(!isFreeRecord()){
+                    Toast.makeText(AddRecordActivity.this, "Запись на это время уже занята! Выберите другое время.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 saveRecord();
             }
         });
@@ -84,6 +88,37 @@ public class AddRecordActivity extends AppCompatActivity {
     private Boolean isValidate(){
         return spinnerDoctor.getSelectedItem()!=null
                 && spinnerProfession.getSelectedItem()!=null;
+    }
+
+    private Boolean isFreeRecord(){
+        ConnectionSQL connectionSQL = new ConnectionSQL();
+        connection = connectionSQL.connectionClass();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd HH:mm", Locale.ENGLISH);
+        String selectedDateTime = dateFormat.format(dateAndTime.getTime());
+        String doctorFIO = spinnerDoctor.getSelectedItem().toString();
+        int doctorID = 0;
+
+        if(connection != null) {
+            String sqlQueryFindDoctorID = "SELECT d.[код врача], d.фамилия+' '+d.имя+' '+d.отчество as fio " +
+                    "from [врач] d,[запись на прием] wr " +
+                    "where wr.[код врача]=d.[код врача] " +
+                    "and d.фамилия+' '+d.имя+' '+d.отчество = '"+doctorFIO+"' " +
+                    "and wr.[дата и время]='"+selectedDateTime+"'";
+            Statement statement = null;
+            try {
+                statement = connection.createStatement();
+                ResultSet set = statement.executeQuery(sqlQueryFindDoctorID);
+                while (set.next()) {
+                    doctorID = set.getInt(1);
+                }
+                if(doctorID!=0)
+                    return false;
+            } catch (Exception e) {
+                Log.e("Error: ", e.getMessage());
+            }
+        }
+        return true;
     }
 
     private void saveRecord(){

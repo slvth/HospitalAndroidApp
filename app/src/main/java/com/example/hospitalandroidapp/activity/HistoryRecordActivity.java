@@ -1,22 +1,17 @@
-package com.example.hospitalandroidapp.fragment;
+package com.example.hospitalandroidapp.activity;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
-import com.example.hospitalandroidapp.activity.AddRecordActivity;
 import com.example.hospitalandroidapp.R;
 import com.example.hospitalandroidapp.adapter.RecordAdapter;
 import com.example.hospitalandroidapp.database.ConnectionSQL;
@@ -27,36 +22,27 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class RecordFragment extends Fragment {
+public class HistoryRecordActivity extends AppCompatActivity {
     Connection connection;
-    RecyclerView recyclerViewRecord;
+    RecyclerView recyclerViewHistory;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_record, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_history_record);
 
-        Button btnRecord = view.findViewById(R.id.btnRecord);
-        recyclerViewRecord = view.findViewById(R.id.recyclerViewRecord);
+        recyclerViewHistory = findViewById(R.id.recyclerViewHistory);
+        ImageButton btnHistoryBack = findViewById(R.id.btnHistoryBack);
 
-        downloadDataToRecyclerview(); //загрузка списка записей из бд в Recyclerview
+        //загрузка списка записей из бд в Recyclerview
+        downloadDataToRecyclerview();
 
-        btnRecord.setOnClickListener(new View.OnClickListener() {
+        btnHistoryBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AddRecordActivity.class);
-                startActivityForResult(intent, 100);
+                finish();
             }
         });
-
-        return view;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (data == null) {return;}
-            downloadDataToRecyclerview();
     }
 
     private void downloadDataToRecyclerview(){
@@ -65,14 +51,14 @@ public class RecordFragment extends Fragment {
 
         connection = connectionSQL.connectionClass();
         if(connection != null){
-            SharedPreferences sharedPref = getActivity().getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
+            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
             int pacient_id = sharedPref.getInt(getString(R.string.pref_id), 0);
 
             String sqlQuery = "Select wr.*, d.фамилия+' '+d.имя+' '+d.отчество+' ('+sp.название+')' фио " +
                     "from [запись на прием] wr, [врач] d, специальность sp " +
                     "where wr.[код врача]=d.[код врача] and sp.[код специальности]=d.[код специальности] " +
-                    "and wr.[дата и время]>=GETDATE() and [код пациента]="+pacient_id+" " +
-                    "order by wr.[дата и время]";
+                    "and wr.[дата и время]<GETDATE() and [код пациента]="+pacient_id+" " +
+                    "order by wr.[дата и время] desc";
 
             Statement statement = null;
             try {
@@ -86,7 +72,8 @@ public class RecordFragment extends Fragment {
                 Log.e("Error: ", e.getMessage());
             }
         }
-        recyclerViewRecord.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerViewRecord.setAdapter(new RecordAdapter(getActivity(), records));
+        recyclerViewHistory.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewHistory.setAdapter(new RecordAdapter(this, records));
     }
+
 }

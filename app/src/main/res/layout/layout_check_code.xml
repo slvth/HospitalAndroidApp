@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/txtCheckCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Код потверждения:"
+        android:textSize="18sp" />
+
+    <com.santalu.maskara.widget.MaskEditText
+        android:id="@+id/edtCheckCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue2"
+        android:hint="____"
+        android:inputType="number"
+        app:mask="____"
+        app:maskCharacter="_"
+        app:maskStyle="completable" />
+
+</LinearLayout>

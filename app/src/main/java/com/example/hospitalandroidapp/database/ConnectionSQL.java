@@ -15,7 +15,7 @@ public class ConnectionSQL {
 
     @SuppressLint("New Api")
     public Connection connectionClass(){
-        String ip="192.168.0.174", port="1433", db="Больница", username="sa2", password="12345";
+        String ip="10.238.167.143", port="1433", db="Больница", username="sa2", password="12345";
 
         StrictMode.ThreadPolicy threadPolicy =
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
