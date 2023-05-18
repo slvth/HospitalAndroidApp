@@ -1,6 +1,8 @@
 package com.example.hospitalandroidapp.fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,7 +27,11 @@ import com.example.hospitalandroidapp.database.RecordReceptionModel;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class RecordFragment extends Fragment {
     Connection connection;
@@ -68,7 +74,7 @@ public class RecordFragment extends Fragment {
             SharedPreferences sharedPref = getActivity().getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
             int pacient_id = sharedPref.getInt(getString(R.string.pref_id), 0);
 
-            String sqlQuery = "Select wr.*, d.фамилия+' '+d.имя+' '+d.отчество+' ('+sp.название+')' фио " +
+            String sqlQuery = "Select wr.*, d.фамилия+' '+d.имя+' '+d.отчество+'\n('+sp.название+')' фио " +
                     "from [запись на прием] wr, [врач] d, специальность sp " +
                     "where wr.[код врача]=d.[код врача] and sp.[код специальности]=d.[код специальности] " +
                     "and wr.[дата и время]>=GETDATE() and [код пациента]="+pacient_id+" " +
@@ -86,7 +92,8 @@ public class RecordFragment extends Fragment {
                 Log.e("Error: ", e.getMessage());
             }
         }
+
         recyclerViewRecord.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerViewRecord.setAdapter(new RecordAdapter(getActivity(), records));
+        recyclerViewRecord.setAdapter(new RecordAdapter(getActivity(), records, true));
     }
 }

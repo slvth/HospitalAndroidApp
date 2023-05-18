@@ -92,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Успешная авторизация!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 

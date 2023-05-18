@@ -54,7 +54,7 @@ public class HistoryRecordActivity extends AppCompatActivity {
             SharedPreferences sharedPref = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
             int pacient_id = sharedPref.getInt(getString(R.string.pref_id), 0);
 
-            String sqlQuery = "Select wr.*, d.фамилия+' '+d.имя+' '+d.отчество+' ('+sp.название+')' фио " +
+            String sqlQuery = "Select wr.*, d.фамилия+' '+d.имя+' '+d.отчество+'\n('+sp.название+')' фио " +
                     "from [запись на прием] wr, [врач] d, специальность sp " +
                     "where wr.[код врача]=d.[код врача] and sp.[код специальности]=d.[код специальности] " +
                     "and wr.[дата и время]<GETDATE() and [код пациента]="+pacient_id+" " +
@@ -73,7 +73,7 @@ public class HistoryRecordActivity extends AppCompatActivity {
             }
         }
         recyclerViewHistory.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewHistory.setAdapter(new RecordAdapter(this, records));
+        recyclerViewHistory.setAdapter(new RecordAdapter(this, records, false));
     }
 
 }

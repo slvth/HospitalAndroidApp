@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.example.hospitalandroidapp.R;
 import com.example.hospitalandroidapp.activity.HistoryRecordActivity;
+import com.example.hospitalandroidapp.activity.LoginActivity;
 import com.example.hospitalandroidapp.adapter.RecordAdapter;
 import com.example.hospitalandroidapp.database.ConnectionSQL;
 import com.example.hospitalandroidapp.database.PacientModel;
@@ -49,6 +50,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 
 public class AccountFragment2 extends Fragment {
@@ -59,7 +61,7 @@ public class AccountFragment2 extends Fragment {
     MaskEditText edtAccountPhone,edtAccountPassport,edtAccountPolicyOMS,edtAccountSNILS;
     EditText edtAccountSurname, edtAccountName, edtAccountMiddleName,  edtAddressRegistration, edtAddressResidence;
     RadioButton rbtnAccountMale, rbtnAccountFemale;
-    Button btnOpenHistory, btnEditAccount, btnAccountCancel, btnAccountSave;
+    Button btnExitAccount, btnOpenHistory, btnEditAccount, btnAccountCancel, btnAccountSave;
     ImageButton btnAccountDate;
 
     Calendar dateAndTime= Calendar.getInstance();
@@ -92,12 +94,23 @@ public class AccountFragment2 extends Fragment {
         rbtnAccountMale = v.findViewById(R.id.rbtnAccountMale);
         rbtnAccountFemale = v.findViewById(R.id.rbtnAccountFemale);
 
+        btnExitAccount = v.findViewById(R.id.btnExitAccount);
         btnOpenHistory = v.findViewById(R.id.btnOpenHistory);
         btnEditAccount = v.findViewById(R.id.btnEditAccount);
         btnAccountCancel = v.findViewById(R.id.btnAccountCancel);
         btnAccountSave = v.findViewById(R.id.btnAccountSave);
         btnAccountDate = v.findViewById(R.id.btnAccountDate);
 
+        btnExitAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPref = requireActivity().getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
+                sharedPref.edit().remove(getString(R.string.pref_id)).commit();
+
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                requireActivity().finish();
+            }
+        });
         btnOpenHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
