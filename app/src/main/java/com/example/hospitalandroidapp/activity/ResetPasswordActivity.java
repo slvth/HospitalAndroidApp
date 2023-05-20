@@ -68,6 +68,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         RadioButton rbtnResetPhone = findViewById(R.id.rbtnResetPhone);
         RadioButton rbtnResetPassport = findViewById(R.id.rbtnResetPassport);
         Button btnCheckReset = findViewById(R.id.btnCheckReset);
+        ImageButton btnResetBack = findViewById(R.id.btnResetBack);
 
         goneLinear(true);
         rbtnResetPhone.setChecked(true);
@@ -103,6 +104,13 @@ public class ResetPasswordActivity extends AppCompatActivity {
                     if (findPacient() != -1)
                         alertDialogCheckPassport();
                 }
+            }
+        });
+
+        btnResetBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.hospitalandroidapp.R;
@@ -22,6 +23,7 @@ public class ResetPasswordActivity2 extends AppCompatActivity {
     Connection connection;
     TextInputEditText edtLoginReset, edtPasswordReset, edtPasswordRepeat;
     Button btnResetAccount;
+    ImageButton btnResetBack2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class ResetPasswordActivity2 extends AppCompatActivity {
         edtPasswordRepeat = findViewById(R.id.edtPasswordRepeat);
 
         btnResetAccount = findViewById(R.id.btnResetAccount);
+        btnResetBack2 = findViewById(R.id.btnResetBack2);
         btnResetAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,6 +53,13 @@ public class ResetPasswordActivity2 extends AppCompatActivity {
 
                 Toast.makeText(ResetPasswordActivity2.this, "Успешно!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(ResetPasswordActivity2.this, LoginActivity.class));
+                finish();
+            }
+        });
+
+        btnResetBack2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 finish();
             }
         });

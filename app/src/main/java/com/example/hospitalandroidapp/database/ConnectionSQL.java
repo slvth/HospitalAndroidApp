@@ -1,6 +1,7 @@
 package com.example.hospitalandroidapp.database;
 
 import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.util.Log;
@@ -31,6 +32,9 @@ public class ConnectionSQL {
 
             String finalConnectURL = connectURL;
             //connection = DriverManager.getConnection(finalConnectURL, username, password);
+            //HttpUrlConnection conn = (HttpURLConnection) url.openConnection();
+            //connection.on.(7000);
+
 
             if(isConnectionValid(DriverManager.getConnection(finalConnectURL, username, password)))
                 connection = DriverManager.getConnection(finalConnectURL, username, password);
@@ -53,9 +57,31 @@ public class ConnectionSQL {
             }
         }
         catch (SQLException e) {
-            // log some useful data here
+            Log.e("EXCEPTION", e.getMessage());
         }
         return false;
+    }
+
+    public class  isConn extends AsyncTask<String, String, String>{
+        String text = "";
+        Boolean isSuccess = false;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            Connection connection1 = connectionClass();
+
+            return text;
+        }
     }
 
     public static Boolean isValid(Connection connection)

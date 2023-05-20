@@ -130,12 +130,23 @@ public class AccountFragment2 extends Fragment {
             @Override
             public void onClick(View view) {
                 enabledAll(false);
+
+                //загрузка данных из бд
+                downloadData();
+
+                //загрузка данных в View
+                setDataInView();
             }
         });
 
         btnAccountSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //проверка на заполненность
+                if(!isValidate())
+                    return;
+
+                //сохранение изменений
                 saveEdit();
             }
         });
@@ -150,6 +161,68 @@ public class AccountFragment2 extends Fragment {
 
 
         return v;
+    }
+
+    private boolean isValidate() {
+        if (edtAccountSurname.length() == 0) {
+            String error = "Заполните поле \"Фамилия\"";
+            Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+            edtAccountSurname.setError(error);
+            return false;
+        }
+
+        if (edtAccountName.length() == 0) {
+            String error = "Заполните поле \"Имя\"!";
+            Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+            edtAccountName.setError(error);
+            return false;
+        }
+
+        if (edtAccountPhone.length() == 0) {
+            String error = "Заполните поле \"Телефон\"!";
+            Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+            edtAccountPhone.setError(error);
+            return false;
+        }
+
+        if (edtAccountPassport.length() == 0) {
+            String error = "Заполните поле \"Паспорт\"!";
+            Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+            edtAccountPassport.setError(error);
+            return false;
+        }
+
+
+        if (edtAccountPolicyOMS.length() == 0) {
+            String error = "Заполните поле \"Полис ОМС\"!";
+            Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+            edtAccountPolicyOMS.setError(error);
+            return false;
+        }
+
+        if (edtAccountSNILS.length() == 0) {
+            String error = "Заполните поле \"СНИЛС\"!";
+            Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+            edtAccountSNILS.setError(error);
+            return false;
+        }
+
+        if (edtAddressRegistration.length() == 0) {
+            String error = "Заполните поле \"Адрес регистрации\"!";
+            Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+            edtAddressRegistration.setError(error);
+            return false;
+        }
+
+        if (edtAddressResidence.length() == 0) {
+            String error = "Заполните поле \"Адрес проживания\"!";
+            Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+            edtAddressResidence.setError(error);
+            return false;
+        }
+
+        // after all validation return true.
+        return true;
     }
 
     @Override
