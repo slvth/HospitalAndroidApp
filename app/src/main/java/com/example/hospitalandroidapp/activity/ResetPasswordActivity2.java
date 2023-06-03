@@ -53,6 +53,7 @@ public class ResetPasswordActivity2 extends AppCompatActivity {
 
                 Toast.makeText(ResetPasswordActivity2.this, "Успешно!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(ResetPasswordActivity2.this, LoginActivity.class));
+                setResult(RESULT_OK, getIntent());
                 finish();
             }
         });
@@ -71,10 +72,18 @@ public class ResetPasswordActivity2 extends AppCompatActivity {
 
         if(connection != null) {
             Statement statement = null;
+            /*
             String sqlQuery = "UPDATE пользователи " +
                     "SET логин='"+login+"', " +
                     "пароль='"+password+"' " +
                     "WHERE [код пациента]="+pacient_id;
+            */
+
+            String sqlQuery = "UPDATE пользователи SET логин='"+login+"', пароль='"+password+"' " +
+                    "WHERE пользователи.фамилия+' '+пользователи.имя+' '+пользователи.отчество=" +
+                    "(Select p.фамилия+' '+p.имя+' '+p.отчество  from пациент p " +
+                    "where  p.[код пациента]="+pacient_id+" and роль='пациент')";
+
             try {
                 statement = connection.createStatement();
                 statement.executeQuery(sqlQuery);

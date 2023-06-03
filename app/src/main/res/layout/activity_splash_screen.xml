@@ -7,28 +7,33 @@
     android:orientation="vertical"
     tools:context=".activity.SplashScreenActivity">
 
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
-
     <ImageView
+        android:id="@+id/imgSplashScreen2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:paddingHorizontal="60dp"
+        android:scaleType="center"
         app:srcCompat="@drawable/logo" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="35dp"
+        android:fontFamily="casual"
+        android:includeFontPadding="false"
+        android:text="Больница"
         android:textAlignment="center"
-        android:text="Больница" />
+        android:textColor="@color/blue2"
+        android:textSize="35dp" />
 
-    <Space
+    <ImageView
+        android:id="@+id/imgSplashScreen"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:paddingHorizontal="60dp"
+        app:srcCompat="@drawable/splash_gif" />
+
 
 </LinearLayout>

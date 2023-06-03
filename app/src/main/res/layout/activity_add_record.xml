@@ -60,29 +60,15 @@
             android:background="@drawable/spinner_bg"
             android:spinnerMode="dialog"/>
 
-
-        <LinearLayout
+        <Spinner
+            android:id="@+id/spinnerDateTime"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:paddingVertical="15dp"
+            android:background="@drawable/spinner_bg"
+            android:spinnerMode="dialog"/>
 
-            <EditText
-                android:id="@+id/editTextDateAddRecord"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:enabled="true"
-                android:hint="Выберите дату и время"
-                android:inputType="datetime" />
-
-            <ImageButton
-                android:id="@+id/imgButtonDateAddRecord"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@color/grey"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/date" />
-        </LinearLayout>
     </LinearLayout>
 
 

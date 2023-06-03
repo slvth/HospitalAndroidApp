@@ -1,5 +1,6 @@
 package com.example.hospitalandroidapp.activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,9 +14,13 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.format.Formatter;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.hospitalandroidapp.MainActivity;
 import com.example.hospitalandroidapp.R;
 import com.example.hospitalandroidapp.database.ConnectionSQL;
@@ -39,12 +44,13 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        ImageView imgSplashScreen = findViewById(R.id.imgSplashScreen);
+        Glide.with(this).load(R.drawable.splash_gif).into(imgSplashScreen);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Context context = getApplicationContext();
-
                 /*
                 ConnectionSQL connectionSQL = new ConnectionSQL();
                 Connection connection = connectionSQL.connectionClass();
@@ -70,6 +76,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 }
 
             }
-        }, 1500);
+        }, 5000);
     }
 }

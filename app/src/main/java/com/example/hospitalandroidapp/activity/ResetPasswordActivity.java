@@ -1,5 +1,6 @@
 package com.example.hospitalandroidapp.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -181,7 +182,6 @@ public class ResetPasswordActivity extends AppCompatActivity {
     }
 
 
-
     private int findPacient() {
         String numberExample1 ="", numberExample2 ="", numberExample3 ="";
         passport = edtResetPassport.getText().toString();
@@ -303,7 +303,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                                     //поиск пользователя по номеру телефона
                                     int pacient_id = findPacient();
                                     intent.putExtra("pacient_id", pacient_id);
-                                    startActivity(intent);
+                                    startActivityForResult(intent, 101);
                                 }
                             }
                         })
@@ -380,8 +380,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                                 int pacient_id = findPacient();
 
                                 intent.putExtra("pacient_id", pacient_id);
-                                startActivity(intent);
-
+                                startActivityForResult(intent, 101);
                             }
                         })
                 .setNegativeButton("Отмена",
@@ -422,4 +421,13 @@ public class ResetPasswordActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==101 && data!=null){
+            setResult(RESULT_OK, getIntent());
+            finish();
+        }
+
+    }
 }

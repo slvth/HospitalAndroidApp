@@ -64,6 +64,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordViewHolder> {
         }
         String date = formatOutput.format(dateParse);
         String doctor = "Врач: "+records.get(position).getDoctorFIO();
+        int pacient_id = records.get(position).getPatient_id();
 
         holder.txtDateItemRecord.setText(date);
         holder.txtDoctorItemRecord.setText(doctor);
@@ -89,7 +90,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordViewHolder> {
 
                                             if(connection != null) {
                                                 Statement statement = null;
-                                                String sqlQuery = "DELETE FROM [запись на прием] WHERE [код записи на прием]="+records.get(holder.getAdapterPosition()).getRecord_id();
+                                                //String sqlQuery = "DELETE FROM [запись на прием] WHERE [код записи на прием]="+records.get(holder.getAdapterPosition()).getRecord_id();
+                                                //String sqlQuery = "UPDATE [запись на прием] SET  WHERE [код записи на прием]="+records.get(holder.getAdapterPosition()).getRecord_id();
+                                                String sqlQuery = "UPDATE [запись на прием] " +
+                                                        "SET [код пациента] = NULL "+
+                                                        "WHERE [код записи на прием]="+records.get(holder.getAdapterPosition()).getRecord_id();
                                                 try {
                                                     statement = connection.createStatement();
                                                     statement.executeQuery(sqlQuery);

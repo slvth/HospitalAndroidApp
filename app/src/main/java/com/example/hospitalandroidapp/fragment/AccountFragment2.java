@@ -61,7 +61,7 @@ public class AccountFragment2 extends Fragment {
     MaskEditText edtAccountPhone,edtAccountPassport,edtAccountPolicyOMS,edtAccountSNILS;
     EditText edtAccountSurname, edtAccountName, edtAccountMiddleName,  edtAddressRegistration, edtAddressResidence;
     RadioButton rbtnAccountMale, rbtnAccountFemale;
-    Button btnExitAccount, btnOpenHistory, btnEditAccount, btnAccountCancel, btnAccountSave;
+    Button btnExitAccount, btnEditAccount, btnAccountCancel, btnAccountSave;
     ImageButton btnAccountDate;
 
     Calendar dateAndTime= Calendar.getInstance();
@@ -95,7 +95,6 @@ public class AccountFragment2 extends Fragment {
         rbtnAccountFemale = v.findViewById(R.id.rbtnAccountFemale);
 
         btnExitAccount = v.findViewById(R.id.btnExitAccount);
-        btnOpenHistory = v.findViewById(R.id.btnOpenHistory);
         btnEditAccount = v.findViewById(R.id.btnEditAccount);
         btnAccountCancel = v.findViewById(R.id.btnAccountCancel);
         btnAccountSave = v.findViewById(R.id.btnAccountSave);
@@ -109,13 +108,6 @@ public class AccountFragment2 extends Fragment {
 
                 startActivity(new Intent(getActivity(), LoginActivity.class));
                 requireActivity().finish();
-            }
-        });
-        btnOpenHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), HistoryRecordActivity.class);
-                startActivity(intent);
             }
         });
         btnEditAccount.setOnClickListener(new View.OnClickListener() {
@@ -270,7 +262,29 @@ public class AccountFragment2 extends Fragment {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                     String selectedDate = dateFormat.format(dateAndTime.getTime());
 
-                    String sqlQuery = "UPDATE пациент " +
+                    String oldSurname = "";
+                    String oldName = "";
+                    String oldMiddleName = "";
+
+                    if(connection != null){
+                        String sqlQueryFindPacient = "Select p.фамилия, p.имя, p.отчество from [пациент] p " +
+                                "where p.[код пациента] = "+pacient.getPacient_id();
+
+                        Statement statement2 = null;
+                        try {
+                            statement2 = connection.createStatement();
+                            ResultSet set = statement2.executeQuery(sqlQueryFindPacient);
+                            while (set.next()){
+                                oldSurname = set.getString(1);
+                                oldName = set.getString(2);
+                                oldMiddleName = set.getString(3);
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error: ", e.getMessage());
+                        }
+                    }
+
+                    String sqlQueryUpdatePacient = "UPDATE пациент " +
                             "SET фамилия='"+surname+"', " +
                             "имя='"+name+"', " +
                             "отчество='"+middleName+"', " +
@@ -283,6 +297,17 @@ public class AccountFragment2 extends Fragment {
                             "[адрес регистрации]='"+addressRegistration+"', " +
                             "[адрес постоянного места жительства]='"+addressResidence+"' " +
                             "WHERE [код пациента]="+pacient.getPacient_id();
+
+                    String sqlQueryUpdateUser = "UPDATE [пользователи] " +
+                            "SET фамилия='"+surname+"', " +
+                            "имя='"+name+"', " +
+                            "отчество='"+middleName+"' " +
+                            "WHERE фамилия = '"+oldSurname+"' and "+
+                            "имя = '"+oldName+"' and "+
+                            "отчество = '"+oldMiddleName+"'";
+
+                    String sqlQuery = sqlQueryUpdateUser+";\n\n"+sqlQueryUpdatePacient;
+
                     try {
                         statement = connection.createStatement();
                         statement.executeQuery(sqlQuery);

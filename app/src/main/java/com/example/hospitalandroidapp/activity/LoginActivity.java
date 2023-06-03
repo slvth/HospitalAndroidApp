@@ -2,6 +2,7 @@ package com.example.hospitalandroidapp.activity;
 
 import static android.app.PendingIntent.getActivity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -35,9 +36,9 @@ public class LoginActivity extends AppCompatActivity {
         edtLoginAdress = findViewById(R.id.edtLoginAdress);
         edtPasswordAddress = findViewById(R.id.edtPasswordAddress);
 
-        //лень вводить, !ПОТОМ УДАЛИТЬ
-        edtLoginAdress.setText("1");
-        edtPasswordAddress.setText("1");
+        //логин и пароль пациента
+        edtLoginAdress.setText("nikitin1234@mail.ru");
+        edtPasswordAddress.setText("1234nikitin");
 
         Button btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         txtResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
+                startActivityForResult(new Intent(LoginActivity.this, ResetPasswordActivity.class),101);
             }
         });
     }
@@ -67,7 +68,11 @@ public class LoginActivity extends AppCompatActivity {
         int user_id = -1;
 
         if(connection != null) {
-            String sqlQueryFindUser = "Select [код пациента] from пользователи where логин ='" + login + "' and пароль='" + password + "' and [тип пользователя]='пациент'";
+            //String sqlQueryFindUser = "Select [код пациента] from пользователи where логин ='" + login + "' and пароль='" + password + "' and [тип пользователя]='пациент'";
+            String sqlQueryFindUser = "Select p.[код пациента] from пользователи u, пациент p " +
+                    "where u.фамилия+' '+u.имя+' '+u.отчество = p.фамилия+' '+p.имя+' '+p.отчество " +
+                    "and логин ='"+login+"' and пароль='"+password+"' and роль='пациент'";
+
             Statement statement = null;
             try {
                 statement = connection.createStatement();
@@ -102,5 +107,12 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==101 && data!=null)
+            finish();
     }
 }

@@ -54,11 +54,21 @@ public class HistoryRecordActivity extends AppCompatActivity {
             SharedPreferences sharedPref = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
             int pacient_id = sharedPref.getInt(getString(R.string.pref_id), 0);
 
+            /*
             String sqlQuery = "Select wr.*, d.фамилия+' '+d.имя+' '+d.отчество+'\n('+sp.название+')' фио " +
                     "from [запись на прием] wr, [врач] d, специальность sp " +
                     "where wr.[код врача]=d.[код врача] and sp.[код специальности]=d.[код специальности] " +
                     "and wr.[дата и время]<GETDATE() and [код пациента]="+pacient_id+" " +
-                    "order by wr.[дата и время] desc";
+                    "order by wr.[дата и время] desc";*/
+
+            String sqlQuery = "Select wr.[код записи на прием], wr.[код врача], wr.[код пациента], " +
+                    "CAST(wr.[дата] as DATETIME) + CAST(CAST(wr.[время] AS TIME) as DATETIME) as Дата, " +
+                    "d.фамилия+' '+d.имя+' '+d.отчество+'\n('+sp.название+')' фио " +
+                    "from [запись на прием] wr, [врач] d, специальность sp  " +
+                    "where wr.[код врача]=d.[код врача] and sp.[код специальности]=d.[код специальности] " +
+                    "and CAST(wr.[дата] as DATETIME) + CAST(CAST(wr.[время] AS TIME) as DATETIME)<GETDATE() " +
+                    "and [код пациента]="+pacient_id+" "+
+                    "order by CAST(wr.[дата] as DATETIME) + CAST(CAST(wr.[время] AS TIME) as DATETIME) desc";
 
             Statement statement = null;
             try {

@@ -38,17 +38,6 @@
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="28sp" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnExitAccount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/red"
-                    android:paddingHorizontal="15dp"
-                    android:text="Выйти из аккаунта"
-                    android:textColor="@color/white" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -65,14 +54,6 @@
                     android:layout_marginBottom="10dp"
                     android:animateLayoutChanges="true"
                     android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/btnOpenHistory"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxHeight="60dp"
-                        android:scaleType="fitXY"
-                        android:text="История посещений" />
 
                     <Button
                         android:id="@+id/btnEditAccount"
@@ -426,6 +407,16 @@
                     android:hint=""
                     android:inputType="textMultiLine" />
             </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnExitAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/red"
+                android:paddingHorizontal="15dp"
+                android:text="Выйти из аккаунта"
+                android:textColor="@color/white"
+                android:layout_margin="10dp"/>
 
         </LinearLayout>
     </ScrollView>

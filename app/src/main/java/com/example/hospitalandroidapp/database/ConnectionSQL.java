@@ -18,7 +18,7 @@ public class ConnectionSQL {
     public Connection connectionClass(){
         //10.238.167.143
         //192.168.43.57
-        String ip="192.168.43.57", port="1433", db="Больница", username="sa2", password="12345";
+        String ip="10.238.167.135", port="1433", db="Больница", username="sa2", password="12345";
 
         StrictMode.ThreadPolicy threadPolicy =
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
