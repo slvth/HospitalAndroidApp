@@ -133,7 +133,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordViewHolder> {
 
                                             if(connection != null) {
                                                 Statement statement = null;
-                                                String sqlQuery = "DELETE FROM [запись на прием] WHERE [код записи на прием]="+records.get(holder.getAdapterPosition()).getRecord_id();
+                                                String sqlQuery1 = "DELETE FROM [рекомендация] WHERE [код приема]=(SELECT [код приема] FROM [прием] WHERE [код записи на прием]="+records.get(holder.getAdapterPosition()).getRecord_id()+")";
+                                                String sqlQuery2 = "DELETE FROM [прием] WHERE [код записи на прием]="+records.get(holder.getAdapterPosition()).getRecord_id();
+                                                String sqlQuery3 = "DELETE FROM [запись на прием] WHERE [код записи на прием]="+records.get(holder.getAdapterPosition()).getRecord_id();
+                                                String sqlQuery = sqlQuery1+";\n"+sqlQuery2+";\n"+sqlQuery3;
                                                 try {
                                                     statement = connection.createStatement();
                                                     statement.executeQuery(sqlQuery);
